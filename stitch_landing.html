@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Moi Soi | Popping Boba Lychee Refreshment</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            background-color: #f9f9f9;
+            color: #1a1c1c;
+            font-family: 'Outfit', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' var(--material-fill, 0), 'wght' var(--material-wght, 400), 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .boba-shadow {
+            box-shadow: 0 16px 32px -12px rgba(184, 0, 73, 0.08);
+        }
+        .bounce-hover:hover {
+            transform: scale(1.05);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .active-bounce:active {
+            transform: scale(0.95);
+        }
+        .float-anim {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Floating Boba Bubbles Animation */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100%) scale(0.3);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.6;
+            }
+            85% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+        .bubble {
+            position: absolute;
+            bottom: -50px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.1) 60%, rgba(226, 22, 95, 0.25) 80%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -10;
+        }
+        .bubble-1 { animation: floatUp 12s infinite linear; left: 10%; width: 30px; height: 30px; }
+        .bubble-2 { animation: floatUp 16s infinite linear; left: 25%; width: 45px; height: 45px; animation-delay: 2s; }
+        .bubble-3 { animation: floatUp 10s infinite linear; left: 45%; width: 25px; height: 25px; animation-delay: 4s; }
+        .bubble-4 { animation: floatUp 18s infinite linear; left: 65%; width: 50px; height: 50px; animation-delay: 1s; }
+        .bubble-5 { animation: floatUp 14s infinite linear; left: 80%; width: 35px; height: 35px; animation-delay: 6s; }
+        .bubble-6 { animation: floatUp 13s infinite linear; left: 90%; width: 20px; height: 20px; animation-delay: 3s; }
+
+        /* Accordion transition styles */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out, border-color 0.3s ease-in-out;
+            border-top: 1px solid transparent;
+        }
+        .accordion-content.active {
+            max-height: 160px; /* 10rem / 40 Tailwind equivalent */
+            border-top: 1px solid rgba(228, 189, 194, 0.25);
+        }
+
+        /* Cart drawer transition styles */
+        .cart-drawer-panel {
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cart-drawer-panel.active {
+            transform: translateX(0);
+        }
+        .cart-backdrop-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .cart-backdrop-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#b80049",
+                        "primary-container": "#e2165f",
+                        "on-primary": "#ffffff",
+                        "secondary": "#6b5a60",
+                        "secondary-container": "#f4dce4",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#396360",
+                        "tertiary-container": "#517c79",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f9f9f9",
+                        "on-background": "#1a1c1c",
+                        "surface": "#f9f9f9",
+                        "surface-dim": "#dadada",
+                        "surface-bright": "#f9f9f9",
+                        "surface-container": "#eeeeee",
+                        "surface-container-low": "#f3f3f3",
+                        "surface-container-high": "#e8e8e8",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-surface": "#1a1c1c",
+                        "on-surface-variant": "#5b3f43",
+                        "outline": "#8f6f73",
+                        "outline-variant": "#e4bdc2",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#ffd9de",
+                        "primary-fixed-dim": "#ffb2be",
+                        "on-primary-fixed": "#400014",
+                        "on-primary-fixed-variant": "#900038",
+                        "secondary-fixed": "#f4dce4",
+                        "secondary-fixed-dim": "#d7c1c8",
+                        "on-secondary-fixed": "#25181e",
+                        "on-secondary-fixed-variant": "#524249",
+                        "tertiary-fixed": "#beebe7",
+                        "tertiary-fixed-dim": "#a2cfcb",
+                        "on-tertiary-fixed": "#00201e",
+                        "on-tertiary-fixed-variant": "#224e4b",
+                        "inverse-surface": "#2f3131",
+                        "inverse-on-surface": "#f0f1f1",
+                        "inverse-primary": "#ffb2be"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "margin-desktop": "40px"
+                    },
+                    fontFamily: {
+                        "headline-md": ["Plus Jakarta Sans", "sans-serif"],
+                        "label-sm": ["Outfit", "sans-serif"],
+                        "display-lg": ["Plus Jakarta Sans", "sans-serif"],
+                        "display-lg-mobile": ["Plus Jakarta Sans", "sans-serif"],
+                        "body-md": ["Outfit", "sans-serif"],
+                        "body-lg": ["Outfit", "sans-serif"]
+                    },
+                    fontSize: {
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-transparent text-on-surface font-body-md antialiased min-h-screen flex flex-col relative z-0">
+
+    <!-- Floating Boba Bubbles -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
+        <div class="bubble bubble-4"></div>
+        <div class="bubble bubble-5"></div>
+        <div class="bubble bubble-6"></div>
+    </div>
+
+    <!-- Fixed Background Boba Animation Canvas -->
+    <div class="fixed inset-0 select-none pointer-events-none -z-20 w-full h-full">
+        <div id="canvas-loader" class="absolute inset-0 flex flex-col justify-center items-center gap-3 bg-white/50 backdrop-blur-md z-20 transition-opacity duration-300">
+            <div class="w-8 h-8 border-3 border-primary border-t-transparent rounded-full animate-spin"></div>
+            <p class="text-[10px] text-secondary font-bold tracking-widest uppercase">Chilling boba...</p>
+        </div>
+        <canvas id="boba-canvas" class="w-full h-full transition-opacity duration-300 opacity-40"></canvas>
+    </div>
+
+    <!-- TopNavBar -->
+    <nav class="sticky top-0 w-full z-40 bg-transparent border-b border-transparent transition-all duration-300">
+        <div class="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto w-full">
+            <div class="flex items-center gap-3">
+                <img
+                    alt="Moi Soi Logo"
+                    class="h-10 w-auto hover:rotate-6 transition-transform duration-300"
+                    src="public/logo.png"
+                    style="width: auto;"
+                />
+                <span class="font-display-lg text-display-lg-mobile md:text-2xl font-extrabold text-primary select-none tracking-tight">
+                    Moi Soi
+                </span>
+            </div>
+
+            <div class="hidden md:flex items-center gap-8">
+                <a
+                    class="text-primary font-bold border-b-2 border-primary font-body-md text-body-md py-1 transition-all"
+                    href="#"
+                >
+                    Shop
+                </a>
+                <a
+                    class="text-secondary hover:text-primary transition-all duration-200 hover:scale-105 font-body-md text-body-md"
+                    href="#"
+                >
+                    Our Story
+                </a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button
+                    onclick="setCartOpen(true)"
+                    class="relative flex items-center justify-center p-2.5 bg-secondary-container hover:bg-secondary-container/80 text-primary rounded-full transition-all active-bounce cursor-pointer group"
+                    aria-label="Open Shopping Cart"
+                >
+                    <span class="material-symbols-outlined transition-transform duration-300 group-hover:scale-110">
+                        shopping_bag
+                    </span>
+                    <span id="cart-badge-element" class="hidden absolute -top-1 -right-1 bg-primary text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full animate-bounce cart-badge">
+                        0
+                    </span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Scroll-based Boba Animation in Background -->
+    <section id="hero-scroll-container" class="relative h-[300vh] bg-transparent z-10">
+        <!-- Ambient background glows inside the scroll block -->
+        <div class="sticky top-0 h-screen w-full overflow-hidden">
+            <div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-secondary-fixed opacity-25 rounded-full blur-[120px] -z-10"></div>
+            <div class="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-tertiary-fixed opacity-15 rounded-full blur-[100px] -z-10"></div>
+
+            <!-- Container to align foreground overlay content with site grid layout -->
+            <div class="w-full h-full max-w-container-max mx-auto px-gutter flex items-center justify-center md:justify-start pt-20">
+                <div class="relative w-full max-w-xl h-[320px] md:h-[420px] flex items-center px-4 md:px-0 z-10">
+                    <!-- Feature 0 -->
+                    <div class="hero-feature-panel absolute inset-0 flex flex-col items-start justify-center gap-4 md:gap-6 transition-all duration-700 transform p-4 md:p-6 opacity-100 translate-y-0 scale-100 pointer-events-auto">
+                        <div class="inline-flex items-center gap-2 bg-white/95 px-3.5 py-1.5 rounded-full boba-shadow border border-white/50">
+                            <div class="flex text-primary">
+                                <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1">star</span>
+                                <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1">star</span>
+                                <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1">star</span>
+                                <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1">star</span>
+                                <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 0.5, 'wght' 400">star_half</span>
+                            </div>
+                            <span class="font-label-sm text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">
+                                4.3 Rating
+                            </span>
+                        </div>
+                        <h1 class="font-display-lg text-2xl md:text-4xl font-extrabold text-on-surface leading-tight tracking-tight transition-all duration-500 delay-100 transform opacity-100 translate-y-0">
+                            Moi Soi Popping Boba — <span class="text-primary bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent">Lychee Refreshment</span>
+                        </h1>
+                        <p class="font-body-lg text-xs md:text-sm text-secondary leading-relaxed max-w-md transition-all duration-500 delay-200 transform opacity-100 translate-y-0">
+                            Bursting with flavor and fun! Our signature Lychee drink features juicy popping boba pearls that explode with refreshment in every sip.
+                        </p>
+                        <div class="flex flex-col gap-3 w-full sm:w-auto mt-2">
+                            <div class="flex items-baseline gap-2 mb-1">
+                                <span class="text-2xl md:text-3xl font-extrabold text-primary">₹79</span>
+                                <span class="text-sm md:text-base text-secondary line-through">MRP ₹150</span>
+                                <span class="bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                    ₹71 OFF
+                                </span>
+                            </div>
+                            <button onclick="addToCart()" class="bg-primary hover:bg-primary-container text-white px-8 py-3 rounded-full font-bold text-xs md:text-sm bounce-hover active-bounce boba-shadow flex items-center justify-center gap-2 transition-all cursor-pointer w-full sm:w-auto">
+                                <span class="material-symbols-outlined text-base">add_shopping_cart</span>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Feature 1 -->
+                    <div class="hero-feature-panel absolute inset-0 flex flex-col items-start justify-center gap-4 md:gap-6 transition-all duration-700 transform p-4 md:p-6 opacity-0 translate-y-8 scale-95 pointer-events-none">
+                        <span class="bg-primary-container/10 text-primary font-bold text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-primary/10">
+                            Feature 1
+                        </span>
+                        <h1 class="font-display-lg text-2xl md:text-4xl font-extrabold text-on-surface leading-tight tracking-tight transition-all duration-500 delay-100 transform opacity-0 translate-y-4">
+                            Naturally Sweetened — <span class="text-primary bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent">Real Fruit Extracts</span>
+                        </h1>
+                        <p class="font-body-lg text-xs md:text-sm text-secondary leading-relaxed max-w-md transition-all duration-500 delay-200 transform opacity-0 translate-y-4">
+                            Crafted with real lychee extracts to deliver an authentic, light, and tropical sweetness directly from nature.
+                        </p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="hero-feature-panel absolute inset-0 flex flex-col items-start justify-center gap-4 md:gap-6 transition-all duration-700 transform p-4 md:p-6 opacity-0 translate-y-8 scale-95 pointer-events-none">
+                        <span class="bg-primary-container/10 text-primary font-bold text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-primary/10">
+                            Feature 2
+                        </span>
+                        <h1 class="font-display-lg text-2xl md:text-4xl font-extrabold text-on-surface leading-tight tracking-tight transition-all duration-500 delay-100 transform opacity-0 translate-y-4">
+                            Popping Boba Pearls — <span class="text-primary bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent">Explosive Texture</span>
+                        </h1>
+                        <p class="font-body-lg text-xs md:text-sm text-secondary leading-relaxed max-w-md transition-all duration-500 delay-200 transform opacity-0 translate-y-4">
+                            Juicy, translucent popping boba bubbles that burst with refreshment the second you bite into them.
+                        </p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="hero-feature-panel absolute inset-0 flex flex-col items-start justify-center gap-4 md:gap-6 transition-all duration-700 transform p-4 md:p-6 opacity-0 translate-y-8 scale-95 pointer-events-none">
+                        <span class="bg-primary-container/10 text-primary font-bold text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-primary/10">
+                            Feature 3
+                        </span>
+                        <h1 class="font-display-lg text-2xl md:text-4xl font-extrabold text-on-surface leading-tight tracking-tight transition-all duration-500 delay-100 transform opacity-0 translate-y-4">
+                            Caffeine-Free Energy — <span class="text-primary bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent">Pure All-Day Hydration</span>
+                        </h1>
+                        <p class="font-body-lg text-xs md:text-sm text-secondary leading-relaxed max-w-md transition-all duration-500 delay-200 transform opacity-0 translate-y-4">
+                            Perfect for everyone, any time of the day or night. Indulge in fun hydration without the jitters.
+                        </p>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="hero-feature-panel absolute inset-0 flex flex-col items-start justify-center gap-4 md:gap-6 transition-all duration-700 transform p-4 md:p-6 opacity-0 translate-y-8 scale-95 pointer-events-none">
+                        <h1 class="font-display-lg text-2xl md:text-4xl font-extrabold text-on-surface leading-tight tracking-tight transition-all duration-500 delay-100 transform opacity-0 translate-y-4">
+                            Ready to Refresh? — <span class="text-primary bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent">Instant Boba Love</span>
+                        </h1>
+                        <p class="font-body-lg text-xs md:text-sm text-secondary leading-relaxed max-w-md transition-all duration-500 delay-200 transform opacity-0 translate-y-4">
+                            Get your 330ml bottle of chilled Moi Soi Lychee Boba now and experience the taste explosion!
+                        </p>
+                        <div class="flex flex-col gap-3 w-full sm:w-auto mt-2">
+                            <button onclick="addToCart()" class="bg-primary hover:bg-primary-container text-white px-8 py-3 rounded-full font-bold text-xs md:text-sm bounce-hover active-bounce boba-shadow flex items-center justify-center gap-2 transition-all cursor-pointer w-full sm:w-auto">
+                                <span class="material-symbols-outlined text-base">add_shopping_cart</span>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="py-24 bg-white/20 backdrop-blur-md border-y border-outline-variant/20 z-10 relative">
+        <div class="max-w-container-max mx-auto px-gutter">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+                <!-- Feature 1 -->
+                <div class="scroll-reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 transform ease-out" data-delay="0">
+                    <div class="flex flex-col items-center text-center gap-4 group p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/40 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(184,0,73,0.06)] hover:border-primary/20 transition-all duration-500 ease-out">
+                        <div class="w-20 h-20 rounded-full bg-secondary-fixed flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1">nutrition</span>
+                        </div>
+                        <h3 class="font-headline-md text-xl font-bold text-on-surface">Naturally Flavored Lychee</h3>
+                        <p class="font-body-md text-sm text-secondary leading-relaxed">Real fruit extracts for an authentic tropical taste.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="scroll-reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 transform ease-out" data-delay="100">
+                    <div class="flex flex-col items-center text-center gap-4 group p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/40 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(184,0,73,0.06)] hover:border-primary/20 transition-all duration-500 ease-out">
+                        <div class="w-20 h-20 rounded-full bg-tertiary-fixed flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <span class="material-symbols-outlined text-tertiary text-4xl">bubble_chart</span>
+                        </div>
+                        <h3 class="font-headline-md text-xl font-bold text-on-surface">Fun Popping Boba</h3>
+                        <p class="font-body-md text-sm text-secondary leading-relaxed">Exciting texture that bursts with juice in your mouth.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="scroll-reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 transform ease-out" data-delay="200">
+                    <div class="flex flex-col items-center text-center gap-4 group p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/40 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(184,0,73,0.06)] hover:border-primary/20 transition-all duration-500 ease-out">
+                        <div class="w-20 h-20 rounded-full bg-secondary-fixed flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <span class="material-symbols-outlined text-primary text-4xl">energy_savings_leaf</span>
+                        </div>
+                        <h3 class="font-headline-md text-xl font-bold text-on-surface">Caffeine-Free</h3>
+                        <p class="font-body-md text-sm text-secondary leading-relaxed">Perfect for all-day enjoyment without the jitters.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="scroll-reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 transform ease-out" data-delay="300">
+                    <div class="flex flex-col items-center text-center gap-4 group p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/40 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(184,0,73,0.06)] hover:border-primary/20 transition-all duration-500 ease-out">
+                        <div class="w-20 h-20 rounded-full bg-tertiary-fixed flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <span class="material-symbols-outlined text-tertiary text-4xl">ac_unit</span>
+                        </div>
+                        <h3 class="font-headline-md text-xl font-bold text-on-surface">Best Served Chilled</h3>
+                        <p class="font-body-md text-sm text-secondary leading-relaxed">Tastes best when icy cold. Refreshment guaranteed.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specifications Accordion -->
+    <section class="py-24 bg-surface-container-low/20 backdrop-blur-md z-10 relative">
+        <div class="max-w-3xl mx-auto px-gutter w-full">
+            <div class="scroll-reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 transform ease-out">
+                <h2 class="font-display-lg text-3xl md:text-4xl font-extrabold text-center mb-12 text-on-surface">
+                    Product Details
+                </h2>
+            </div>
+            <div class="space-y-4">
+                <!-- Accordion Item 1 -->
+                <div class="scroll-reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 transform ease-out" data-delay="0">
+                    <div class="border border-outline-variant/40 bg-white/70 backdrop-blur-md rounded-2xl overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md">
+                        <button
+                            class="w-full flex items-center justify-between p-6 text-left cursor-pointer"
+                            onclick="toggleAccordion('acc1')"
+                        >
+                            <span class="font-headline-md text-lg font-bold flex items-center gap-3 text-on-surface">
+                                <span class="material-symbols-outlined text-primary">straighten</span>
+                                Net Qty
+                            </span>
+                            <span
+                                class="material-symbols-outlined transition-transform duration-300 text-secondary"
+                                id="icon-acc1"
+                                style="transform: rotate(180deg);"
+                            >
+                                expand_more
+                            </span>
+                        </button>
+                        <div
+                            id="acc1"
+                            class="accordion-content active"
+                        >
+                            <div class="p-6 text-secondary font-body-lg text-base leading-relaxed bg-background/30">
+                                330ml of pure refreshment in every bottle.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion Item 2 -->
+                <div class="scroll-reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 transform ease-out" data-delay="100">
+                    <div class="border border-outline-variant/40 bg-white/70 backdrop-blur-md rounded-2xl overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md">
+                        <button
+                            class="w-full flex items-center justify-between p-6 text-left cursor-pointer"
+                            onclick="toggleAccordion('acc2')"
+                        >
+                            <span class="font-headline-md text-lg font-bold flex items-center gap-3 text-on-surface">
+                                <span class="material-symbols-outlined text-primary">public</span>
+                                Country of Origin
+                            </span>
+                            <span
+                                class="material-symbols-outlined transition-transform duration-300 text-secondary"
+                                id="icon-acc2"
+                            >
+                                expand_more
+                            </span>
+                        </button>
+                        <div
+                            id="acc2"
+                            class="accordion-content"
+                        >
+                            <div class="p-6 text-secondary font-body-lg text-base leading-relaxed bg-background/30">
+                                Proudly sourced and crafted in Vietnam.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion Item 3 -->
+                <div class="scroll-reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 transform ease-out" data-delay="200">
+                    <div class="border border-outline-variant/40 bg-white/70 backdrop-blur-md rounded-2xl overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md">
+                        <button
+                            class="w-full flex items-center justify-between p-6 text-left cursor-pointer"
+                            onclick="toggleAccordion('acc3')"
+                        >
+                            <span class="font-headline-md text-lg font-bold flex items-center gap-3 text-on-surface">
+                                <span class="material-symbols-outlined text-primary">history</span>
+                                Shelf Life
+                            </span>
+                            <span
+                                class="material-symbols-outlined transition-transform duration-300 text-secondary"
+                                id="icon-acc3"
+                            >
+                                expand_more
+                            </span>
+                        </button>
+                        <div
+                            id="acc3"
+                            class="accordion-content"
+                        >
+                            <div class="p-6 text-secondary font-body-lg text-base leading-relaxed bg-background/30">
+                                Stays fresh for 24 months from the date of manufacture.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion Item 4 -->
+                <div class="scroll-reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 transform ease-out" data-delay="300">
+                    <div class="border border-outline-variant/40 bg-white/70 backdrop-blur-md rounded-2xl overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md">
+                        <button
+                            class="w-full flex items-center justify-between p-6 text-left cursor-pointer"
+                            onclick="toggleAccordion('acc4')"
+                        >
+                            <span class="font-headline-md text-lg font-bold flex items-center gap-3 text-on-surface">
+                                <span class="material-symbols-outlined text-primary">eco</span>
+                                Food Type
+                            </span>
+                            <span
+                                class="material-symbols-outlined transition-transform duration-300 text-secondary"
+                                id="icon-acc4"
+                            >
+                                expand_more
+                            </span>
+                        </button>
+                        <div
+                            id="acc4"
+                            class="accordion-content"
+                        >
+                            <div class="p-6 text-secondary font-body-lg text-base leading-relaxed bg-background/30">
+                                100% Vegetarian product.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full bg-surface-container-low/50 backdrop-blur-md mt-auto border-t border-outline-variant/30 z-10 relative">
+        <div class="scroll-reveal opacity-0 translate-y-8 scale-95 transition-all duration-700 transform ease-out">
+            <div class="w-full py-16 px-gutter max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
+                <div class="max-w-sm">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img
+                            alt="Moi Soi Logo"
+                            class="h-8 w-auto"
+                            src="public/logo.png"
+                            style="width: auto;"
+                        />
+                        <span class="font-headline-md text-xl font-bold text-primary select-none">
+                            Moi Soi
+                        </span>
+                    </div>
+                    <p class="text-secondary font-body-md text-sm leading-relaxed mb-6">
+                        Redefining hydration with fun textures and tropical flavors. Join the boba revolution.
+                    </p>
+                    <div class="flex gap-4">
+                        <button
+                            class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all bounce-hover cursor-pointer border border-outline-variant/20 shadow-sm"
+                            aria-label="Share"
+                        >
+                            <span class="material-symbols-outlined text-lg">share</span>
+                        </button>
+                        <button
+                            class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all bounce-hover cursor-pointer border border-outline-variant/20 shadow-sm"
+                            aria-label="Like"
+                        >
+                            <span class="material-symbols-outlined text-lg">thumb_up</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-12">
+                    <div class="flex flex-col gap-3">
+                        <h4 class="font-bold text-on-surface text-base mb-1">Company</h4>
+                        <a class="text-secondary hover:text-primary transition-colors text-sm" href="#">Privacy Policy</a>
+                        <a class="text-secondary hover:text-primary transition-colors text-sm" href="#">Terms of Service</a>
+                        <a class="text-secondary hover:text-primary transition-colors text-sm" href="#">Shipping Info</a>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <h4 class="font-bold text-on-surface text-base mb-1">Contact</h4>
+                        <a class="text-secondary hover:text-primary transition-colors text-sm underline break-all" href="mailto:help@moisoi.com">
+                            help@moisoi.com
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full border-t border-outline-variant/40 py-8 px-gutter text-center">
+                <p class="text-secondary font-body-md text-xs">
+                    © 2024 Moi Soi. All rights reserved. Drogheria Sellers Pvt Ltd.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Drawer Modal -->
+    <div id="cart-drawer-container" class="relative z-50">
+        <!-- Backdrop overlay -->
+        <div
+            id="cart-backdrop"
+            onclick="setCartOpen(false)"
+            class="fixed inset-0 bg-black/45 backdrop-blur-sm z-45 cart-backdrop-overlay"
+        ></div>
+
+        <!-- Drawer Panel -->
+        <div
+            id="cart-drawer"
+            class="fixed top-0 right-0 w-full max-w-md h-full bg-white/90 backdrop-blur-2xl shadow-2xl border-l border-outline-variant/40 flex flex-col z-50 cart-drawer-panel"
+        >
+            <!-- Header -->
+            <div class="flex justify-between items-center p-6 border-b border-outline-variant/30">
+                <h2 class="font-display-lg text-xl font-extrabold text-on-surface flex items-center gap-2.5">
+                    <span class="material-symbols-outlined text-primary">shopping_bag</span>
+                    Your Cart
+                </h2>
+                <button
+                    onclick="setCartOpen(false)"
+                    class="p-1.5 rounded-full hover:bg-surface-container transition-colors text-secondary cursor-pointer"
+                    aria-label="Close Cart"
+                >
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <!-- Scrollable Items Container -->
+            <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-6">
+                <!-- Cart list dynamically generated here -->
+            </div>
+
+            <!-- Footer Summary & Checkout -->
+            <div id="cart-footer" class="p-6 border-t border-outline-variant/30 bg-surface-container-low/40 space-y-4 hidden">
+                <div class="flex justify-between items-baseline">
+                    <span class="text-sm font-medium text-secondary">Subtotal</span>
+                    <span id="cart-total-price" class="text-2xl font-extrabold text-primary">₹0</span>
+                </div>
+                <p class="text-xs text-secondary">
+                    Shipping and taxes calculated at checkout. Delivery is free for new customers.
+                </p>
+                <button
+                    onclick="alert('Thank you for your order! Checkout process simulation.')"
+                    class="w-full bg-primary hover:bg-primary-container text-white py-4 rounded-full font-bold text-base bounce-hover active-bounce boba-shadow transition-all cursor-pointer flex items-center justify-center gap-2"
+                >
+                    <span class="material-symbols-outlined text-lg">credit_card</span>
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Logic -->
+    <script>
+        // --- State Management ---
+        const state = {
+            cartOpen: false,
+            cartItems: [],
+            activeAccordion: 'acc1',
+            activeFeatureIndex: 0,
+            scrollProgress: 0
+        };
+
+        // --- DOM Elements Cache ---
+        const canvas = document.getElementById('boba-canvas');
+        const loader = document.getElementById('canvas-loader');
+        const cartDrawer = document.getElementById('cart-drawer');
+        const cartBackdrop = document.getElementById('cart-backdrop');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const cartFooter = document.getElementById('cart-footer');
+        const cartTotalPrice = document.getElementById('cart-total-price');
+        const cartBadges = document.querySelectorAll('.cart-badge');
+        const heroScrollContainer = document.getElementById('hero-scroll-container');
+        const featureElements = document.querySelectorAll('.hero-feature-panel');
+
+        // --- Boba Animation Frame Preloading ---
+        const totalFrames = 300;
+        const loadedImages = [];
+        let imagesLoaded = false;
+
+        function getFrameUrl(index) {
+            const frameStr = String(index).padStart(3, '0');
+            return `public/images/animation/ezgif-frame-${frameStr}.png`;
+        }
+
+        function loadFrame(index) {
+            return new Promise((resolve) => {
+                if (loadedImages[index]) {
+                    resolve(true);
+                    return;
+                }
+                const img = new Image();
+                img.src = getFrameUrl(index);
+                img.onload = () => {
+                    loadedImages[index] = img;
+                    resolve(true);
+                };
+                img.onerror = () => {
+                    resolve(false);
+                };
+            });
+        }
+
+        async function preloadAll() {
+            // 1. Load the first frame immediately
+            const success = await loadFrame(1);
+            if (success) {
+                imagesLoaded = true;
+                if (loader) {
+                    loader.style.opacity = 0;
+                    setTimeout(() => loader.style.display = 'none', 300);
+                }
+                if (canvas) canvas.style.opacity = 1;
+                drawFrame();
+            }
+
+            // 2. Load keyframes (every 5th frame)
+            const keyframePromises = [];
+            for (let i = 1; i <= totalFrames; i += 5) {
+                keyframePromises.push(loadFrame(i));
+            }
+            await Promise.all(keyframePromises);
+
+            // 3. Load remaining frames in batches of 10
+            const remainingFrames = [];
+            for (let i = 1; i <= totalFrames; i++) {
+                if (!loadedImages[i]) {
+                    remainingFrames.push(i);
+                }
+            }
+
+            const batchSize = 10;
+            for (let i = 0; i < remainingFrames.length; i += batchSize) {
+                const batch = remainingFrames.slice(i, i + batchSize);
+                await Promise.all(batch.map((index) => loadFrame(index)));
+            }
+        }
+
+        // --- Canvas Drawing Logic ---
+        let lastDrawnImage = null;
+
+        function drawFrame() {
+            if (!canvas) {
+                requestAnimationFrame(drawFrame);
+                return;
+            }
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                requestAnimationFrame(drawFrame);
+                return;
+            }
+
+            const progress = state.scrollProgress;
+            const targetIndex = Math.min(
+                totalFrames,
+                Math.max(1, Math.floor(progress * (totalFrames - 1)) + 1)
+            );
+
+            let imgToDraw = loadedImages[targetIndex];
+
+            // Fallback: search for nearest loaded frame to eliminate flicker
+            if (!imgToDraw) {
+                let left = targetIndex - 1;
+                let right = targetIndex + 1;
+                while (left >= 1 || right <= totalFrames) {
+                    if (left >= 1 && loadedImages[left]) {
+                        imgToDraw = loadedImages[left];
+                        break;
+                    }
+                    if (right <= totalFrames && loadedImages[right]) {
+                        imgToDraw = loadedImages[right];
+                        break;
+                    }
+                    left--;
+                    right++;
+                }
+            }
+
+            // Performance: only redraw if the image to draw is different or size changed
+            const displayWidth = canvas.clientWidth;
+            const displayHeight = canvas.clientHeight;
+            const sizeChanged = canvas.width !== displayWidth || canvas.height !== displayHeight;
+
+            if (imgToDraw && (imgToDraw !== lastDrawnImage || sizeChanged)) {
+                if (sizeChanged) {
+                    canvas.width = displayWidth;
+                    canvas.height = displayHeight;
+                }
+
+                const imgWidth = imgToDraw.naturalWidth || imgToDraw.width;
+                const imgHeight = imgToDraw.naturalHeight || imgToDraw.height;
+
+                if (imgWidth && imgHeight) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    const imgRatio = imgWidth / imgHeight;
+                    const canvasRatio = canvas.width / canvas.height;
+
+                    let drawWidth, drawHeight, offsetX, offsetY;
+
+                    if (imgRatio > canvasRatio) {
+                        drawHeight = canvas.height;
+                        drawWidth = canvas.height * imgRatio;
+                        offsetX = (canvas.width - drawWidth) / 2;
+                        offsetY = 0;
+                    } else {
+                        drawWidth = canvas.width;
+                        drawHeight = canvas.width / imgRatio;
+                        offsetX = 0;
+                        offsetY = (canvas.height - drawHeight) / 2;
+                    }
+
+                    ctx.drawImage(imgToDraw, offsetX, offsetY, drawWidth, drawHeight);
+                    lastDrawnImage = imgToDraw;
+                }
+            }
+
+            requestAnimationFrame(drawFrame);
+        }
+
+        // --- DOM Sync and State Updaters ---
+        function updateDOM() {
+            // 1. Cart Drawer Open/Close
+            if (state.cartOpen) {
+                cartDrawer.classList.add('active');
+                cartBackdrop.classList.add('active');
+            } else {
+                cartDrawer.classList.remove('active');
+                cartBackdrop.classList.remove('active');
+            }
+
+            // 2. Cart Badges
+            const totalQuantity = state.cartItems.reduce((acc, item) => acc + item.quantity, 0);
+            cartBadges.forEach(badge => {
+                if (totalQuantity > 0) {
+                    badge.textContent = totalQuantity;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            });
+
+            // 3. Cart Content List
+            if (state.cartItems.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="h-full flex flex-col justify-center items-center text-center gap-4 py-12">
+                        <span class="material-symbols-outlined text-6xl text-secondary/30 select-none">
+                            shopping_cart
+                        </span>
+                        <div>
+                            <h3 class="font-headline-md text-lg font-bold text-on-surface">Your cart is empty</h3>
+                            <p class="text-secondary text-sm mt-1 max-w-xs">
+                                Add some popping boba deliciousness to start your refreshment!
+                            </p>
+                        </div>
+                    </div>
+                `;
+                cartFooter.classList.add('hidden');
+            } else {
+                cartFooter.classList.remove('hidden');
+                const totalPrice = state.cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+                cartTotalPrice.textContent = `₹${totalPrice}`;
+
+                cartItemsContainer.innerHTML = state.cartItems.map(item => `
+                    <div class="flex gap-4 p-4 bg-white/50 border border-outline-variant/20 rounded-2xl boba-shadow">
+                        <div class="relative w-20 h-20 bg-background/80 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center">
+                            <img alt="${item.name}" class="object-contain p-1 w-full h-full" src="${item.image}" />
+                        </div>
+                        <div class="flex-1 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-on-surface text-sm line-clamp-1">
+                                    ${item.name}
+                                </h3>
+                                <p class="text-xs text-secondary mt-0.5">330ml Bottle</p>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-primary font-extrabold">
+                                    ₹${item.price * item.quantity}
+                                </span>
+                                <div class="flex items-center gap-2 bg-secondary-container/60 px-3 py-1.5 rounded-full border border-primary/5">
+                                    <button
+                                        onclick="updateQuantity('${item.id}', -1)"
+                                        class="text-primary hover:scale-110 active:scale-95 transition-all w-5 h-5 flex items-center justify-center font-bold text-lg select-none cursor-pointer"
+                                        aria-label="Decrease quantity"
+                                    >
+                                        -
+                                    </button>
+                                    <span class="font-bold text-xs w-4 text-center select-none text-on-surface">
+                                        ${item.quantity}
+                                    </span>
+                                    <button
+                                        onclick="updateQuantity('${item.id}', 1)"
+                                        class="text-primary hover:scale-110 active:scale-95 transition-all w-5 h-5 flex items-center justify-center font-bold text-lg select-none cursor-pointer"
+                                        aria-label="Increase quantity"
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function addToCart() {
+            const existingItem = state.cartItems.find(item => item.id === 'lychee-boba');
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                state.cartItems.push({
+                    id: 'lychee-boba',
+                    name: 'Moi Soi Popping Boba — Lychee',
+                    price: 79,
+                    quantity: 1,
+                    image: 'public/lychee-can.png'
+                });
+            }
+            state.cartOpen = true;
+            updateDOM();
+        }
+
+        function updateQuantity(id, delta) {
+            state.cartItems = state.cartItems.map(item => {
+                if (item.id === id) {
+                    const newQty = item.quantity + delta;
+                    return newQty > 0 ? { ...item, quantity: newQty } : null;
+                }
+                return item;
+            }).filter(Boolean);
+            updateDOM();
+        }
+
+        function setCartOpen(isOpen) {
+            state.cartOpen = isOpen;
+            updateDOM();
+        }
+
+        // --- Feature Panels Transition Logic ---
+        function updateActiveFeature(index) {
+            if (state.activeFeatureIndex === index) return;
+            state.activeFeatureIndex = index;
+
+            featureElements.forEach((el, idx) => {
+                const isActive = idx === index;
+                const h1 = el.querySelector('h1');
+                const p = el.querySelector('p');
+
+                if (isActive) {
+                    el.classList.remove('opacity-0', 'translate-y-8', 'scale-95', 'pointer-events-none');
+                    el.classList.add('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
+                    if (h1) {
+                        h1.classList.remove('opacity-0', 'translate-y-4');
+                        h1.classList.add('opacity-100', 'translate-y-0');
+                    }
+                    if (p) {
+                        p.classList.remove('opacity-0', 'translate-y-4');
+                        p.classList.add('opacity-100', 'translate-y-0');
+                    }
+                } else {
+                    el.classList.remove('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
+                    el.classList.add('opacity-0', 'translate-y-8', 'scale-95', 'pointer-events-none');
+                    if (h1) {
+                        h1.classList.remove('opacity-100', 'translate-y-0');
+                        h1.classList.add('opacity-0', 'translate-y-4');
+                    }
+                    if (p) {
+                        p.classList.remove('opacity-100', 'translate-y-0');
+                        p.classList.add('opacity-0', 'translate-y-4');
+                    }
+                }
+            });
+        }
+
+        // --- Scroll Event Handler ---
+        function handleScroll() {
+            const scrollY = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight;
+            const windowHeight = window.innerHeight;
+            const maxScroll = docHeight - windowHeight;
+            state.scrollProgress = maxScroll > 0 ? Math.min(1, Math.max(0, scrollY / maxScroll)) : 0;
+
+            if (!heroScrollContainer) return;
+            const heroHeight = heroScrollContainer.scrollHeight;
+            const offsetTop = heroScrollContainer.offsetTop;
+            const maxHeroScroll = heroHeight - windowHeight;
+            const currentHeroScroll = scrollY - offsetTop;
+            const heroProgress = maxHeroScroll > 0 ? Math.min(1, Math.max(0, currentHeroScroll / maxHeroScroll)) : 0;
+
+            // Map progress to feature index thresholds
+            let newFeatureIndex = 0;
+            if (heroProgress < 0.2) newFeatureIndex = 0;
+            else if (heroProgress < 0.45) newFeatureIndex = 1;
+            else if (heroProgress < 0.7) newFeatureIndex = 2;
+            else if (heroProgress < 0.9) newFeatureIndex = 3;
+            else newFeatureIndex = 4;
+
+            updateActiveFeature(newFeatureIndex);
+        }
+
+        // --- Accordion Logic ---
+        function toggleAccordion(id) {
+            state.activeAccordion = state.activeAccordion === id ? null : id;
+            const ids = ['acc1', 'acc2', 'acc3', 'acc4'];
+            ids.forEach(itemId => {
+                const content = document.getElementById(itemId);
+                const icon = document.getElementById('icon-' + itemId);
+
+                if (state.activeAccordion === itemId) {
+                    content.classList.add('active');
+                    if (icon) icon.style.transform = 'rotate(180deg)';
+                } else {
+                    content.classList.remove('active');
+                    if (icon) icon.style.transform = 'rotate(0deg)';
+                }
+            });
+        }
+
+        // --- ScrollReveal Observer Setup ---
+        function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const delay = parseInt(target.getAttribute('data-delay') || '0', 10);
+                        setTimeout(() => {
+                            target.classList.remove('opacity-0', 'translate-y-8', 'scale-95');
+                            target.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+                        }, delay);
+                        observer.unobserve(target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // --- Initialization ---
+        window.addEventListener('DOMContentLoaded', () => {
+            updateDOM();
+            preloadAll();
+            initScrollReveal();
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            window.addEventListener('resize', handleScroll);
+            handleScroll();
+        });
+    </script>
+</body>
+</html>
