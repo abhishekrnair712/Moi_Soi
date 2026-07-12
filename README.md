@@ -37,7 +37,7 @@ moi_soi/
 │   ├── lychee-bottle.png       # Product bottle image
 │   └── lychee-can.png          # Product can image
 ├── README.md                   # Project documentation
-└── stitch_landing.html         # Main landing page HTML document
+└── index.html         # Main landing page HTML document
 ```
 
 ---
@@ -47,7 +47,7 @@ moi_soi/
 To view and interact with the landing page locally:
 
 1. **Clone or Download** the repository.
-2. Open `stitch_landing.html` in your web browser:
+2. Open `index.html` in your web browser:
    - Double-click the file to open it directly.
    - Alternatively, serve it via a local development server such as VS Code's **Live Server** extension to ensure assets load correctly.
 
@@ -55,5 +55,5 @@ To view and interact with the landing page locally:
 
 ## 💡 Development Details
 
-- **Tailwind Theme Configuration**: Custom styles, color tokens (like `primary` brand colors and HSL container surfaces), and font configurations are defined in the inline `<script id="tailwind-config">` within `stitch_landing.html`.
+- **Tailwind Theme Configuration**: Custom styles, color tokens (like `primary` brand colors and HSL container surfaces), and font configurations are defined in the inline `<script id="tailwind-config">` within `index.html`.
 - **Canvas Image Preloader**: A batch-loading promise chain preloads canvas frames (initially every 5th keyframe, then remaining frames in batches of 10) to optimize page load speeds and prevent visual stuttering while scrolling.
